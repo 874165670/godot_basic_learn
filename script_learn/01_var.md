@@ -83,6 +83,7 @@ f) 字典 (Dictionary)：
 
 - 用于存储键值对
 - 例子： `var character = {"name"： "Bob"， "class"： "Warrior"}`
+- 这个例子中，键是字符串"name"，值是字符串"Bob"；键是字符串"class"，值是字符串"Warrior"
 - 适合存储复杂的结构化数据
 
 在游戏开发中，我们经常会混合使用这些类型。例如：
