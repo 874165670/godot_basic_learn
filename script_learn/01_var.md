@@ -197,7 +197,7 @@ func _process(delta):
         gain_score(100)
 ```
 
-现在让我们分析这个更完善的例子:
+现在让我们一起分析一下在这个例子中，不同作用域中的变量:
 
 1. 全局变量 (在 `GlobalSettings.gd` 中):
 
