@@ -225,36 +225,36 @@ func _process(delta)：
 extends KinematicBody2D
 
 var player_name： String = "Alice"
-var health： int = 100
-var speed： float = 200.0
-var items： Array = ["sword"， "shield"]
-var is_invincible： bool = false
+var health: int = 100
+var speed: float = 200.0
+var items: Array = ["sword"， "shield"]
+var is_invincible: bool = false
 
-func _ready()：
+func _ready():
     print("Player " + player_name + " is ready!")
-    print("Initial health： " + str(health))
-    print("Inventory： " + str(items))
+    print("Initial health: " + str(health))
+    print("Inventory: " + str(items))
 
-func take_damage(amount： int)：
-    if not is_invincible：
+func take_damage(amount: int):
+    if not is_invincible:
         health -= amount
-        print(player_name + " took " + str(amount) + " damage. Health： " + str(health))
-        if health <= 0：
+        print(player_name + " took " + str(amount) + " damage. Health: " + str(health))
+        if health <= 0:
             game_over()
 
-func game_over()：
+func game_over():
     print(player_name + " is defeated!")
 
-func _process(delta)：
+func _process(delta):
     # 简单的移动逻辑
     var velocity = Vector2.ZERO
-    if Input.is_action_pressed("move_right")：
+    if Input.is_action_pressed("move_right"):
         velocity.x += 1
-    if Input.is_action_pressed("move_left")：
+    if Input.is_action_pressed("move_left"):
         velocity.x -= 1
-    if Input.is_action_pressed("move_down")：
+    if Input.is_action_pressed("move_down"):
         velocity.y += 1
-    if Input.is_action_pressed("move_up")：
+    if Input.is_action_pressed("move_up"):
         velocity.y -= 1
 
     velocity = velocity.normalized() * speed
