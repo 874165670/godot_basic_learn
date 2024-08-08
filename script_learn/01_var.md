@@ -137,8 +137,8 @@ extends Node
 var game_version = "1.0"
 var difficulty_level = "Normal"
 
-func get_game_info()：
-    return "Version： " + game_version + "， Difficulty： " + difficulty_level
+func get_game_info():
+    return "Version: " + game_version + ", Difficulty: " + difficulty_level
 ```
 
 然后，创建一个 `Player.gd` 脚本：
@@ -152,49 +152,49 @@ var player_name = "Alice"
 var health = 100
 var score = 0
 
-func _ready()：
+func _ready():
     # 局部变量
     var welcome_message = "Welcome， " + player_name + "!"
     print(welcome_message)
 
     # 访问全局变量
-    print("Game Info： " + GlobalSettings.get_game_info())
+    print("Game Info: " + GlobalSettings.get_game_info())
 
     # 使用类变量
-    print("Initial Health： " + str(health))
+    print("Initial Health: " + str(health))
 
     introduce_player()
 
-func introduce_player()：
+func introduce_player():
     # 使用类变量
     print(player_name + " is ready to play!")
     # print(welcome_message)  # 这行会报错，因为welcome_message是_ready函数的局部变量
 
-func take_damage(amount)：
+func take_damage(amount):
     # amount 是局部变量
     health -= amount
     print(player_name + " took " + str(amount) + " damage. Health： " + str(health))
 
     # 访问和修改全局变量
-    if health < 30 and GlobalSettings.difficulty_level != "Easy"：
+    if health < 30 and GlobalSettings.difficulty_level != "Easy":
         GlobalSettings.difficulty_level = "Easy"
         print("Difficulty adjusted to Easy")
 
-func gain_score(points)：
+func gain_score(points):
     # points 是局部变量
     score += points
-    print(player_name + " gained " + str(points) + " points. Total score： " + str(score))
+    print(player_name + " gained " + str(points) + " points. Total score: " + str(score))
 
     # 访问全局变量
-    if score > 1000 and GlobalSettings.difficulty_level != "Hard"：
+    if score > 1000 and GlobalSettings.difficulty_level != "Hard":
         GlobalSettings.difficulty_level = "Hard"
         print("Difficulty increased to Hard")
 
-func _process(delta)：
+func _process(delta):
     # delta 是局部变量
-    if Input.is_action_just_pressed("ui_select")：
+    if Input.is_action_just_pressed("ui_select"):
         take_damage(10)
-    if Input.is_action_just_pressed("ui_focus_next")：
+    if Input.is_action_just_pressed("ui_focus_next"):
         gain_score(100)
 ```
 
