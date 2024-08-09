@@ -137,8 +137,8 @@ extends Node
 var game_version = "1.0"
 var difficulty_level = "Normal"
 
-func get_game_info()：
-    return "Version： " + game_version + "， Difficulty： " + difficulty_level
+func get_game_info():
+    return "Version: " + game_version + ", Difficulty: " + difficulty_level
 ```
 
 然后，创建一个 `Player.gd` 脚本：
@@ -152,49 +152,49 @@ var player_name = "Alice"
 var health = 100
 var score = 0
 
-func _ready()：
+func _ready():
     # 局部变量
     var welcome_message = "Welcome， " + player_name + "!"
     print(welcome_message)
 
     # 访问全局变量
-    print("Game Info： " + GlobalSettings.get_game_info())
+    print("Game Info: " + GlobalSettings.get_game_info())
 
     # 使用类变量
-    print("Initial Health： " + str(health))
+    print("Initial Health: " + str(health))
 
     introduce_player()
 
-func introduce_player()：
+func introduce_player():
     # 使用类变量
     print(player_name + " is ready to play!")
     # print(welcome_message)  # 这行会报错，因为welcome_message是_ready函数的局部变量
 
-func take_damage(amount)：
+func take_damage(amount):
     # amount 是局部变量
     health -= amount
     print(player_name + " took " + str(amount) + " damage. Health： " + str(health))
 
     # 访问和修改全局变量
-    if health < 30 and GlobalSettings.difficulty_level != "Easy"：
+    if health < 30 and GlobalSettings.difficulty_level != "Easy":
         GlobalSettings.difficulty_level = "Easy"
         print("Difficulty adjusted to Easy")
 
-func gain_score(points)：
+func gain_score(points):
     # points 是局部变量
     score += points
-    print(player_name + " gained " + str(points) + " points. Total score： " + str(score))
+    print(player_name + " gained " + str(points) + " points. Total score: " + str(score))
 
     # 访问全局变量
-    if score > 1000 and GlobalSettings.difficulty_level != "Hard"：
+    if score > 1000 and GlobalSettings.difficulty_level != "Hard":
         GlobalSettings.difficulty_level = "Hard"
         print("Difficulty increased to Hard")
 
-func _process(delta)：
+func _process(delta):
     # delta 是局部变量
-    if Input.is_action_just_pressed("ui_select")：
+    if Input.is_action_just_pressed("ui_select"):
         take_damage(10)
-    if Input.is_action_just_pressed("ui_focus_next")：
+    if Input.is_action_just_pressed("ui_focus_next"):
         gain_score(100)
 ```
 
@@ -217,7 +217,7 @@ func _process(delta)：
    - 只在定义它们的函数内可用
    - 用于临时计算和存储
 
-## 7. 实际应用案例
+## 7. [复杂应用案例\*](#ps)
 
 让我们来看一个简单的游戏角色脚本，展示如何使用变量：
 
@@ -225,36 +225,36 @@ func _process(delta)：
 extends KinematicBody2D
 
 var player_name： String = "Alice"
-var health： int = 100
-var speed： float = 200.0
-var items： Array = ["sword"， "shield"]
-var is_invincible： bool = false
+var health: int = 100
+var speed: float = 200.0
+var items: Array = ["sword"， "shield"]
+var is_invincible: bool = false
 
-func _ready()：
+func _ready():
     print("Player " + player_name + " is ready!")
-    print("Initial health： " + str(health))
-    print("Inventory： " + str(items))
+    print("Initial health: " + str(health))
+    print("Inventory: " + str(items))
 
-func take_damage(amount： int)：
-    if not is_invincible：
+func take_damage(amount: int):
+    if not is_invincible:
         health -= amount
-        print(player_name + " took " + str(amount) + " damage. Health： " + str(health))
-        if health <= 0：
+        print(player_name + " took " + str(amount) + " damage. Health: " + str(health))
+        if health <= 0:
             game_over()
 
-func game_over()：
+func game_over():
     print(player_name + " is defeated!")
 
-func _process(delta)：
+func _process(delta):
     # 简单的移动逻辑
     var velocity = Vector2.ZERO
-    if Input.is_action_pressed("move_right")：
+    if Input.is_action_pressed("move_right"):
         velocity.x += 1
-    if Input.is_action_pressed("move_left")：
+    if Input.is_action_pressed("move_left"):
         velocity.x -= 1
-    if Input.is_action_pressed("move_down")：
+    if Input.is_action_pressed("move_down"):
         velocity.y += 1
-    if Input.is_action_pressed("move_up")：
+    if Input.is_action_pressed("move_up"):
         velocity.y -= 1
 
     velocity = velocity.normalized() * speed
@@ -265,14 +265,14 @@ func _process(delta)：
 
 ## 8. 小练习
 
-尝试修改上面的脚本，添加新的变量来表示角色的其他属性，如魔法值、经验值等。然后编写一个函数来显示角色的所有属性。
+尝试自己编写一段简单的脚本，添加不同类型的变量来表示角色（player）的各种属性，如魔法值、经验值等。然后通过print(player)来显示角色的所有属性。
 
 ## 9. 总结
 
 今天我们学习了 GDScript 中的变量声明和基本类型。记住，合理使用变量可以让你的代码更加清晰、易读，并且更容易管理游戏状态。在接下来的课程中，我们将学习如何使用这些变量来创建更复杂的游戏逻辑。
 
-下一课，我们将探讨条件语句，学习如何根据不同的情况让游戏做出不同的反应。感谢观看，我们下次再见!
+下一课，我们将探讨函数的定义，也就是这节课中出现了很多次的func关键字，学习这个关键字在我们的脚本中扮演着怎样的作用。感谢观看，我们下次再见!
 
 ## 00. 备注<a name="ps"></a>
 
-第 6 部分的内容由于涉及到了其他关键字（例如 func、class），所以暂时不要求掌握，如果完全听不懂可以直接跳过，等到我们讲完函数定义、类定义之后再回来温习一下，会更好理解作用域的概念。
+第 6、7 部分的内容由于涉及到了其他关键字（例如 func、class），所以暂时不要求掌握，如果完全听不懂可以直接跳过，等到我们讲完函数定义、类定义之后再回来温习一下，会更好理解作用域的概念。
