@@ -184,16 +184,6 @@ var result = apply_operation(5, 3, func(x, y): return x + y)
 print(result)  # 输出: 8
 ```
 
-### 闭包
-
-```gdscript
-func create_multiplier(factor):
-    return func(x): return x * factor
-
-var double = create_multiplier(2)
-print(double.call(5))  # 输出: 10
-```
-
 ### Godot 4.0 新特性:函数指针
 
 ```gdscript
@@ -319,6 +309,31 @@ func _on_powerup_collected():
 
 - 在方法内部引用当前实例的属性和方法时使用
 - 解决命名冲突
+
+### GDscript 中的闭包是不完整的
+
+```gdscript
+func create_multiplier(factor):
+    return func(x): return x * factor
+
+var double = create_multiplier(2)
+print(double.call(5))  # 输出: 10
+
+func other_multiplier():
+    var i = 0
+    return func(): i += 1 return i
+var result = other_multiplier()
+print(result.call())  # 输出: 1
+print(result.call())  # 输出: 1
+print(result.call())  # 输出: 1
+```
+
+```
+相关拓展：闭包是什么：
+        闭包是一个函数和其周围状态（词法环境）的组合。换句话说，闭包允许一个内部函数访问其外部函数的作用域，并允许创造一个私有的空间。在上面的这个例子create_multiplier(factor)中，闭包捕获到了传入的数字2，这样在之后每一次调用它时，都会使用2来执行函数，而且此后在调用时也不需要再传入给他2了，相较于传统的函数，闭包更灵活。与此同时，一般的闭包都提供了一种方式来创建持久的私有状态，例如上面的例子中的other_multiplier()。在其他语言中（例如JavaScript），这个count的状态在闭包的整个生命周期内都存在，但仍然对外部不可直接访问，只能通过调用这个函数来让这个值不断加1。
+        但是在GDscript中，并不会一直加1，而是一直输出1。
+        在绝大多数编程语言中，都支持闭包，闭包是函数式编程的重要语法结构，但是在GDscript中，闭包是不完整的，只具有部分的特性，值得注意这一点。
+```
 
 ## 12. 小练习
 
